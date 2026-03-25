@@ -1,4 +1,4 @@
-package org.db1.inventory.domain.modal;
+package org.db1.inventory.infra.messaging.kafka.dto;
 
 import java.math.BigDecimal;
 
@@ -6,11 +6,11 @@ public class OrderItem {
 
     private String sku;
 
-    private String quantity;
+    private Integer quantity;
 
     private BigDecimal unitPrice;
 
-    public OrderItem(String sku, String quantity, BigDecimal unitPrice) {
+    public OrderItem(String sku, Integer quantity, BigDecimal unitPrice) {
         this.sku = sku;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
@@ -20,7 +20,7 @@ public class OrderItem {
         return sku;
     }
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
