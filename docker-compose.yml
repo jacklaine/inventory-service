@@ -1,0 +1,21 @@
+services:
+
+  postgres:
+    image: postgres:18-alpine
+    container_name: pg-inventory
+    environment:
+      POSTGRES_DB: pg-inventory
+      POSTGRES_USER: pg-inventory
+      POSTGRES_PASSWORD: "0706"
+    ports:
+      - "5444:5432"
+    volumes:
+      - pg-inventory-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pg-inventory -d pg-inventory"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pg-inventory-data:
