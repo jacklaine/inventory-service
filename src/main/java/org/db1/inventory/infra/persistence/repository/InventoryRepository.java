@@ -1,7 +1,6 @@
 package org.db1.inventory.infra.persistence.repository;
 
 import java.time.Instant;
-import java.util.Optional;
 
 import org.db1.inventory.domain.interfaces.IInventoryItem;
 import org.db1.inventory.domain.modal.InventoryItem;

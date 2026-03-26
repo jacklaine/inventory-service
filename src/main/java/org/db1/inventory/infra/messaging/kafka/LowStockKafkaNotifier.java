@@ -22,6 +22,9 @@ public class LowStockKafkaNotifier implements LowStockPublisher {
     @Channel("low-stock-out")
     Emitter<String> emitter;
 
+    @Channel("low-stock-dlq-out")
+    Emitter<String> dlqEmitter;
+
     @Override
     public void notify(LowStockAlert alert) {
         logger.info("Alerta de estoque" + " sku=" + alert.getSku()
@@ -34,6 +37,14 @@ public class LowStockKafkaNotifier implements LowStockPublisher {
                 alert.getThreshold(),
                 Instant.now().toString());
 
-        emitter.send(Json.encodePrettily(dto));
+        String payload = Json.encodePrettily(dto);
+
+        emitter.send(payload)
+                .whenComplete((ignored, throwable) -> {
+                    if (throwable != null) {
+                        logger.error("Falha ao publicar alerta de estoque. Publicando em DLQ.", throwable);
+                        dlqEmitter.send(payload);
+                    }
+                });
     }
 }
