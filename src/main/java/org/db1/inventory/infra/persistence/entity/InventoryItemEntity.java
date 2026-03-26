@@ -36,7 +36,6 @@ public class InventoryItemEntity extends PanacheEntityBase {
     @Column(name = "low_stock_threshold", nullable = false)
     private int lowStockThreshold;
 
-    @Column(updatable = false)
     @CreationTimestamp
     private Instant createdAt;
 
