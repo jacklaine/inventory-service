@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS inventory_item (
     sku                 VARCHAR(64)     NOT NULL,
     quantity            INT             NOT NULL,
     low_stock_threshold INT             NOT NULL,
-    createdat           TIMESTAMPTZ     DEFAULT now(),
-    updatedat           TIMESTAMPTZ,
+    createdat           TIMESTAMPTZ     NOT NULL DEFAULT now(),
+    updatedat           TIMESTAMPTZ     NOT NULL DEFAULT now(),
 
     CONSTRAINT uq_inventory_item_sku        UNIQUE (sku),
     CONSTRAINT chk_quantity_non_negative     CHECK (quantity >= 0),
