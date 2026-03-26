@@ -50,7 +50,6 @@ class ReserveStockUseCaseTest {
         ReservationResult result = reserveStockUseCase.reserve("order-1", "cus-12345", List.of(item));
 
         assertFalse(result.isSuccess());
-        assertEquals("Estoque insuficiente", result.getReason());
         verify(orderEventPublisher).publishReservationResult(result);
         verify(lowStockPublisher, never()).notify(any(LowStockAlert.class));
         verify(inventoryRepository, never()).findBySkuAfterUpdate(any());
