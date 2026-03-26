@@ -1,6 +1,6 @@
 # Inventory Service
 
-Serviço de gerenciamento de estoque da Anymarket, responsável por reservar estoque a partir de eventos de pedidos, notificar alertas de estoque baixo e garantir consistência via comunicação assíncrona orientada por eventos.
+Serviço de gerenciamento de estoque, responsável por reservar estoque a partir de eventos de pedidos, notificar alertas de estoque baixo e garantir consistência via comunicação assíncrona orientada por eventos.
 
 ## 📋 Visão Geral
 
