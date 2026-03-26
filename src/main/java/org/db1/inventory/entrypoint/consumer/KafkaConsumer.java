@@ -43,7 +43,7 @@ public class KafkaConsumer {
                         BigDecimal.valueOf(i.getUnitPrice().doubleValue())))
                 .toList();
 
-        reserveStockUseCase.reserve(envelope.getPayload().getOrderId(), items);
+        reserveStockUseCase.reserve(envelope.getPayload().getOrderId(), envelope.getPayload().getCustomerId(), items);
     }
 
     private <T> T mapToDTO(String msg, Class<T> dtoClass) {

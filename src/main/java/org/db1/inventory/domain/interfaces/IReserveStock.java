@@ -7,6 +7,6 @@ import org.db1.inventory.infra.messaging.kafka.dto.OrderItem;
 
 public interface IReserveStock {
 
-    ReservationResult reserve(String orderId, List<OrderItem> items);
+    ReservationResult reserve(String orderId, String customerId, List<OrderItem> items);
     
 }

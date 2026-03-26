@@ -47,7 +47,7 @@ class ReserveStockUseCaseTest {
 
         when(inventoryRepository.reserveStock("SKU-1", 5)).thenReturn(false);
 
-        ReservationResult result = reserveStockUseCase.reserve("order-1", List.of(item));
+        ReservationResult result = reserveStockUseCase.reserve("order-1", "cus-12345", List.of(item));
 
         assertFalse(result.isSuccess());
         assertEquals("Estoque insuficiente", result.getReason());
@@ -64,7 +64,7 @@ class ReserveStockUseCaseTest {
         when(inventoryRepository.findBySkuAfterUpdate("SKU-2"))
                 .thenReturn(new InventoryItem("SKU-2", 2, 2));
 
-        ReservationResult result = reserveStockUseCase.reserve("order-2", List.of(item));
+        ReservationResult result = reserveStockUseCase.reserve("order-2", "cus-12345", List.of(item));
 
         assertTrue(result.isSuccess());
         assertNull(result.getReason());

@@ -31,11 +31,11 @@ public class ReserveStockUseCase implements IReserveStock {
 
     @Override
     @Transactional
-    public ReservationResult reserve(String orderId, List<OrderItem> items) {
+    public ReservationResult reserve(String orderId, String customerId, List<OrderItem> items) {
         for (OrderItem item : items) {
             boolean reserved = inventoryRepository.reserveStock(item.getSku(), item.getQuantity());
             if (!reserved) {
-                ReservationResult rejected = ReservationResult.rejected(orderId, "Estoque insuficiente");
+                ReservationResult rejected = ReservationResult.rejected(orderId, "Estoque insuficiente item " + item.getSku(), customerId, items);
                 orderEventPublisher.publishReservationResult(rejected);
                 return rejected;
             }
@@ -48,7 +48,7 @@ public class ReserveStockUseCase implements IReserveStock {
             }
         }
 
-        ReservationResult confirmed = ReservationResult.confirmed(orderId);
+        ReservationResult confirmed = ReservationResult.confirmed(orderId, customerId, items);
         orderEventPublisher.publishReservationResult(confirmed);
         return confirmed;
     }

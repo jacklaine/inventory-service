@@ -71,6 +71,18 @@ class InventoryFlowIntegrationTest {
     }
 
     @Test
+    void shouldRejectOrderWhenStockIsZero() throws Exception {
+        insertInventoryItem("SKU-ZERO", 0, 2);
+
+        String orderId = "order-" + UUID.randomUUID();
+        publishOrderCreated(orderId, "SKU-ZERO", 10);
+
+        JsonObject rejectedEvent = awaitEventByType("orders.v1.events", "OrderRejected", Duration.ofSeconds(15));
+        assertNotNull(rejectedEvent, "Deveria receber OrderRejected quando estoque é 0");
+        assertEquals(orderId, rejectedEvent.getJsonObject("payload").getString("orderId"));
+    }
+
+    @Test
     void shouldPublishLowStockNotificationWhenThresholdIsReached() throws Exception {
         insertInventoryItem("SKU-LOW", 5, 3);
 
